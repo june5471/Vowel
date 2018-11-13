@@ -1,0 +1,227 @@
+---
+title             : "Data Visdualization on Madarin Vowels"
+shorttitle        : "Final Project in EDLD 610: Introduction to Data Science with R"
+
+author: 
+  - name          : "Teresa Chen"
+    affiliation   : "3"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Rm.52 Gerlnger Annex, University of Oregon, OR 9740"
+    email         : "szuhuac@uoregon.edu"
+  - name          : "Jun Lun"
+    affiliation   : "2"
+  - name          : "Steffi Hung"
+    affiliation   : "2"
+  - name          : "Ting-fen Lin"
+    affiliation   : "1"
+    
+affiliation:
+  - id            : "1"
+    institution   : "Department of Human Physiology"
+  - id            : "2"
+    institution   : "Department of East Asia Linguistic Language"
+  - id            : "3"
+    institution   : "Department of Communication Disorder"
+
+authornote: |
+  Steffi and Jun are the owner of the dataset. They have the correct permissions to make the dataset public.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "Madarin, Vowels, Native speaker, Non-native speaker"
+
+
+bibliography      : ["r-references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man, fleqn, noextraspace"
+output            : 
+  papaja::apa6_pdf:
+    toc: true
+    toc_depth: 5
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library("tidyverse")
+library("rio")
+library("here")
+library("janitor")
+library("tinytex")
+library("kableExtra")
+library("knitr")
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      error = TRUE,
+                      fig.width = 6.5,
+                      fig.height = 8
+                      )
+theme_set(theme_minimal(base_size = 8))
+```
+
+```{r load_data, include = FALSE}
+df <- import(here("data", "data.xlsx"),
+             setclass = "tbl_df")
+
+head(df)
+
+```
+```{r tidy_data, include = FALSE}
+tidy_df <- df %>% 
+  clean_names(case = "snake") %>% 
+  separate(x_1, into = c("group", "id"),
+           sep = "(?<=[A-Za-z])(?=[0-9])") %>%  #seperate x_1 to group (NS vs. NNS) & id
+  mutate(id = case_when(
+   group == "NNS" & id == '1' ~  '7',
+   group == "NNS" & id == '2' ~  '8',
+   group == "NNS" & id == '3' ~  '9',
+   group == "NNS" & id == '4' ~  '10',
+   group == "NNS" & id == '5' ~  '11',
+   group == "NNS" & id == '6' ~  '12',
+   TRUE ~ id
+  )) %>%   # fix duplicate id numbers
+  mutate( formant_type = as.factor(mean), mean = NULL,
+          group = as.factor(group),
+          id = as.numeric(id),
+          yi = i, i = NULL,
+          yu = y, y = NULL,
+          wu = u, u = NULL,
+          ye = e, e = NULL,
+          wo = o, o = NULL,
+          en = x_u_0259, x_u_0259 = NULL,
+          e = x_u_0264, x_u_0264 = NULL,
+          ai = a, a = NULL,
+          ao = x_u_0251, x_u_0251 = NULL) %>%  #rename variables & set the variable types
+  gather(vowel, value, -1:-6) %>%  
+  mutate(vowel = as.factor(vowel))%>% 
+  spread(formant_type, value) %>% 
+  filter(gender == "F") %>%  #quite redundant here (all females), just for meet the requirement
+  select(id, group, age, height, vowel, F1, F2) %>% #reorder variables & discard gender
+  arrange(id)
+  
+head(tidy_df)
+
+
+```
+```{r smr_data, include= FALSE}
+smry_df <- tidy_df %>% 
+  group_by(group, vowel) %>% 
+  summarize_at(vars(F1, F2), funs(mean, sd)) 
+  
+
+head(smry_df)
+```
+
+
+\newpage
+# Methods
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+
+## Participants
+
+## Material
+
+## Procedure
+
+## Data analysis
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+
+# Results
+```{r figure1, echo= FALSE}
+##figure 1 
+tidy_df %>% 
+  ggplot(aes(x = F2, y = F1, color = vowel)) + 
+  geom_point(size = 3) +
+  scale_x_reverse() +  #reverse x and y to meet the perception of sounds
+  scale_y_reverse() +
+  facet_wrap(~ group) + 
+  theme_classic() +
+  scale_color_discrete(breaks = c("yi", "yu", 
+                                  "wu", "ye", 
+                                  "wo", "en", 
+                                  "e", "ai", 
+                                  "ao"))  #reorder vowel based on IPA order
+```
+
+
+
+```{r table1, echo= FALSE}
+smry_df %>% 
+  kable(format = "latex",
+        digits = 2,
+        caption = "Formant by volwels among non-native and native groups",
+        booktabs = T) 
+
+  # kable_styling(bootstrap_options = "striped", 
+  #               full_width = F) 
+```
+
+
+
+```{r figure2, echo= FALSE}
+smry_df %>% 
+  ggplot(aes(x = F2_mean, y = F1_mean, 
+             label = vowel, color = group)) +
+    geom_label() +
+    scale_x_reverse() +  
+    scale_y_reverse() +
+    theme_classic()
+
+```
+
+```{r figure3, echo = FALSE}
+ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
+  geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
+                                 label = vowel, fill = group),
+             alpha = 0.2) +
+  geom_point(aes(color = vowel, shape = group),
+             size = 3, alpha = 0.4) +
+  stat_ellipse(aes(color = vowel), level = 0.67) +
+  scale_x_reverse() +  
+  scale_y_reverse() +
+  theme_classic() +
+  guides(color = FALSE)
+
+```
+
+
+# Discussion
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
