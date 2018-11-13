@@ -1,71 +1,50 @@
 
 ---
-title             : "Final Project"
-shorttitle        : "EDLD 610"
-
-author: 
-  - name          : "Teresa Chen"
-    affiliation   : "1"
-    corresponding : yes    # Define only one corresponding author
-    address       : "University of Oregon, Eugene, OR"
-    email         : "my@uoregon.edu"
-  - name          : "Steffi Huang"
-    affiliation   : "2"
-  - name          : "Jun Lan"
-    affiliation   : "2"
-  - name          : "Ting-fen Lin"
-    affiliation   : "3"
-
-
+title: "Final Project"
+author:
+- address: University of Oregon, Eugene, OR
+  affiliation: '1'
+  corresponding: yes
+  email: my@uoregon.edu
+  name: Teresa Chen
+- affiliation: '2'
+  name: Steffi Huang
+- affiliation: '2'
+  name: Jun Lan
+- affiliation: '3'
+  name: Ting-fen Lin
 affiliation:
-  - id            : "1"
-    institution   : "Human Physiology"
-  - id            : "2"
-    institution   : "East Asia Languages & Literatures"
-  - id            : "3"
-    institution   : "Communication Disorders & Sciences"
-    
-
-
+- id: '1'
+  institution: Human Physiology
+- id: '2'
+  institution: East Asia Languages & Literatures
+- id: '3'
+  institution: Communication Disorders & Sciences
 authornote: |
   Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-
   Enter author note here.
-
+bibliography: r-references.bib
+classoption: man, fleqn, noextraspace
+documentclass: apa6
+draft: no
+figurelist: no
+floatsintext: no
+footnotelist: no
+keywords: keywords
+linenumbers: yes
+mask: no
+shorttitle: EDLD 610
+tablelist: no
 abstract: |
   One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  
   Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
   One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
   One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
   Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
   One or two sentences to put the results into a more **general context**.
-  
   Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-
-  
   <!-- https://tinyurl.com/ybremelq -->
-  
-keywords          : "keywords"
-wordcount         : "X"
-
-bibliography      : ["r-references.bib"]
-
-floatsintext      : no
-figurelist        : no
-tablelist         : no
-footnotelist      : no
-linenumbers       : yes
-mask              : no
-draft             : no
-
-documentclass     : "apa6"
-classoption       : "man, fleqn, noextraspace"
+wordcount: X
 ---
 output: 
   html_document:
