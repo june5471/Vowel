@@ -71,7 +71,6 @@ library("rio")
 library("here")
 library("janitor")
 library("tinytex")
-library("kableExtra")
 library("knitr")
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
@@ -83,7 +82,7 @@ theme_set(theme_minimal(base_size = 8))
 ```
 
 ```{r load_data, include = FALSE}
-df <- import(here("data", "data.xlsx"),
+df <- import(here("data", "datanew.xlsx"),
              setclass = "tbl_df")
 
 head(df)
@@ -101,27 +100,18 @@ tidy_df <- df %>%
    group == "NNS" & id == '4' ~  '10',
    group == "NNS" & id == '5' ~  '11',
    group == "NNS" & id == '6' ~  '12',
-   TRUE ~ id
-  )) %>%   # fix duplicate id numbers
-  mutate( formant_type = as.factor(mean), mean = NULL,
-          group = as.factor(group),
-          id = as.numeric(id),
-          yi = i, i = NULL,
-          yu = y, y = NULL,
-          wu = u, u = NULL,
-          ye = e, e = NULL,
-          wo = o, o = NULL,
-          en = x_u_0259, x_u_0259 = NULL,
-          e = x_u_0264, x_u_0264 = NULL,
-          ai = a, a = NULL,
-          ao = x_u_0251, x_u_0251 = NULL) %>%  #rename variables & set the variable types
-  gather(vowel, value, -1:-6) %>%  
-  mutate(vowel = as.factor(vowel))%>% 
-  spread(formant_type, value) %>% 
-  filter(gender == "F") %>%  #quite redundant here (all females), just for meet the requirement
+   TRUE ~ id 
+   )) %>%  # fix duplicate id numbers
+  mutate(group = as.factor(group),
+        id = as.numeric(id)) %>%  #rename variables & set the variable types
+  gather(vowel, value, -1:-6) %>%
+  mutate(vowel = as.factor(vowel))%>%
+  spread(mean, value) %>%
+  filter(gender == "F") %>%  
+  #quite redundant here (all females), just for meet the requirement
   select(id, group, age, height, vowel, F1, F2) %>% #reorder variables & discard gender
   arrange(id)
-  
+
 head(tidy_df)
 
 
