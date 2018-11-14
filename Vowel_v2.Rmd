@@ -107,8 +107,7 @@ tidy_df <- df %>%
   gather(vowel, value, -1:-6) %>%
   mutate(vowel = as.factor(vowel))%>%
   spread(mean, value) %>%
-  filter(gender == "F") %>%  
-  #quite redundant here (all females), just for meet the requirement
+  filter(gender == "F") %>%   #redundant, just for meet rubric
   select(id, group, age, height, vowel, F1, F2) %>% #reorder variables & discard gender
   arrange(id)
 
