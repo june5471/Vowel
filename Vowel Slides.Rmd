@@ -1,0 +1,164 @@
+---
+title: "Final Project"
+author: "Jun, Steffi, Teresa, Ting-Fen"
+output: ioslides_presentation
+---
+
+# Data Visdualization on Madarin Vowels
+
+## Introduction
+
+* Mandarin Chinese has a five-vowel system 
+1. [yi], [yu], [wu], [en] and [ai]
+2. Four allophones for the **mid vovel**: [e], [o], [en] and [e]
+3. Two allophones for the **low vovel**: [ai] and [ao]
+
+## Research Gap
+- What are the individual variances when producing these 9 vowels? 
+- Vowel space in Chinese? 
+
+## Current Study
+This study investigates
+  + native Chinese speakers' vowel distribution
+  + non-native Chinese speakers' vowel distribution (L1 English)
+
+![vocal tract](picture/mouth.jpg)
+
+## Methods
+### Participants
+- 6 female native (L1) Mandarin speakers & 6 female non-native (L2) Mandarin speakers
+- Average age
+  a. L1 Mandarin speakers was 26.3 (range: 23-30)
+  b. L2 Mandarin speakers was 22.3 (range: 18-28)
+- Length of study: 6 months 
+
+## Methods 
+### Speech materials 
+- 9 Chinese sentences
+- Each sentence includes one of the following nine vowels: [yi], [yu], [wu], [e], [o], [en], [e], [ai], [ao]. 
+- Each vowel appears after the aspirated bilabial stop [p] with a high tone (55).
+
+## Methods
+### Procedure
+- Sentence-repetition oral task
+- Non-native speakers (NNS) and native Chinese speakers (NS) were asked to read the sentences twice.
+- Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram through Praat.
+
+## Data Organization
+```{r setup, include = FALSE}
+library("papaja")
+library("tidyverse")
+library("rio")
+library("here")
+library("janitor")
+library("tinytex")
+library("knitr")
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      error = TRUE,
+                      fig.width = 6.5,
+                      fig.height = 8
+                      )
+theme_set(theme_minimal(base_size = 8))
+
+```
+
+```{r load_data, include = FALSE}
+df <- import(here("data", "datanew.xlsx"),
+             setclass = "tbl_df")
+
+head(df)
+
+```
+```{r tidy_data, include = FALSE}
+tidy_df <- df %>% 
+  clean_names(case = "snake") %>% 
+  separate(x_1, into = c("group", "id"),
+           sep = "(?<=[A-Za-z])(?=[0-9])") %>%  #seperate x_1 to group (NS vs. NNS) & id
+  mutate(id = case_when(
+   group == "NNS" & id == '1' ~  '7',
+   group == "NNS" & id == '2' ~  '8',
+   group == "NNS" & id == '3' ~  '9',
+   group == "NNS" & id == '4' ~  '10',
+   group == "NNS" & id == '5' ~  '11',
+   group == "NNS" & id == '6' ~  '12',
+   )) %>%  # fix duplicate id numbers
+  mutate(group = as.factor(group),
+        id = as.numeric(id)) %>%  #rename variables & set the variable types
+  gather(vowel, value, -1:-6) %>%
+  mutate(vowel = as.factor(vowel))%>%
+  spread(mean, value) %>%
+  filter(gender == "F") %>%   #redundant, just for meet rubric
+  select(id, group, age, height, vowel, F1, F2) %>% #reorder variables & discard gender
+  arrange(id)
+
+head(tidy_df)
+
+
+```
+```{r smr_data, include= FALSE}
+smry_df <- tidy_df %>% 
+  group_by(group, vowel) %>% 
+  summarize_at(vars(F1, F2), funs(mean, sd)) 
+  
+
+head(smry_df)
+```
+
+## Results
+###Native speaker patterns
+Table 1 shows the mean F1 and F2 values of nine Chinese vowels for native speakers.
+
+```{r table1, echo= FALSE}
+smry_df %>% 
+  kable(format = "latex",
+        digits = 2,
+        caption = "Formant by volwels among non-native and native groups",
+        booktabs = T) 
+
+  # kable_styling(bootstrap_options = "striped", 
+  #               full_width = F) 
+```
+
+```{r figure1, echo= FALSE}
+##figure 1 
+tidy_df %>% 
+  ggplot(aes(x = F2, y = F1, color = vowel)) + 
+  geom_point(size = 3) +
+  scale_x_reverse() +  #reverse x and y to meet the perception of sounds
+  scale_y_reverse() +
+  facet_wrap(~ group) + 
+  theme_classic() +
+  scale_color_discrete(breaks = c("yi", "yu", 
+                                  "wu", "ye", 
+                                  "wo", "en", 
+                                  "e", "ai", 
+                                  "ao"))  #reorder vowel based on IPA order
+```
+
+```{r figure2, echo= FALSE}
+smry_df %>% 
+  ggplot(aes(x = F2_mean, y = F1_mean, 
+             label = vowel, color = group)) +
+    geom_label() +
+    scale_x_reverse() +  
+    scale_y_reverse() +
+    theme_classic()
+
+```
+
+```{r figure3, echo = FALSE}
+ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
+  geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
+                                 label = vowel, fill = group),
+             alpha = 0.2) +
+  geom_point(aes(color = vowel, shape = group),
+             size = 3, alpha = 0.4) +
+  stat_ellipse(aes(color = vowel), level = 0.67) +
+  scale_x_reverse() +  
+  scale_y_reverse() +
+  theme_classic() +
+  guides(color = FALSE)
+
+```
+
