@@ -26,7 +26,8 @@ affiliation:
 authornote: |
   Steffi and Jun are the owner of the dataset. They have the correct permissions to make the dataset public.
 
-abstract:
+abstract: Several studies have examined consonant-vowel boundaries in sentences and concluded that vowels contribute more than consonants to sentence intelligibility. Since Mandarin has a greater proportion of vowels than consonants, 35 vowels and 21 consonants, vowels indeed play an important role for phonemic contrasts.This study examines six female native speakers and six female non-native speakers’ vowel production in Mandarin. The native speakers’ vowel space is compared with each other and the Standard Chinese vowel chart to explore similar patterns. Also, the non-native speakers’ vowel space is compared with the native speakers’ vowel space and the Standard Chinese vowel chart to examine native-like or non-native-like patterns.
+
 keywords          : "Madarin, Vowels, Native speaker, Non-native speaker"
 
 
