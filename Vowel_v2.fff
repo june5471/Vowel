@@ -2,6 +2,13 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
+\includegraphics{picture/mouth.jpg}
+\caption{vocal tract}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
 \includegraphics{Vowel_v2_files/figure-latex/figure1-1.pdf}
 \caption{}
 \end{figure*}
@@ -17,26 +24,5 @@
 
 \centering
 \includegraphics{Vowel_v2_files/figure-latex/figure3-1.pdf}
-\caption{}
-\end{figure*}
-\begin{figure*}[hbt]
-\ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{Vowel_v2_files/figure-latex/figure4-1.pdf}
-\caption{}
-\end{figure*}
-\begin{figure*}[hbt]
-\ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{Vowel_v2_files/figure-latex/figure5-1.pdf}
-\caption{}
-\end{figure*}
-\begin{figure*}[hbt]
-\ifnextchar[{\eatarg}{}
-
-\centering
-\includegraphics{Vowel_v2_files/figure-latex/figure6-1.pdf}
 \caption{}
 \end{figure*}

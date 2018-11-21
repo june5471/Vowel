@@ -128,7 +128,9 @@ mean_age <- tidy_df %>%
 
 # Methods
 ##Participants
-Six female native (L1) Mandarin speakers and six female non-native (L2) Mandarin speakers participated in the study. The mean age of the L1 Mandarin speakers is `r mean_age$mean_age[1]` (range: 23-30) and that of the L2 Mandarin speakers is `r mean_age$mean_age[2]` (range: 18-28). Among L1 Mandarin speakers, two speakers are from northern Mainland China (Beijing and Tianjin), three speakers were from southern Mainland China (Nanjing, Chengdu and Chongqing), and one speaker was from Taiwan. The Taiwanese participant identified Mandarin as her most fluent language. All the six L2 Mandarin speakers’ native language was American English. They were all novice-low learners who enrolled in first-year accelerated Chinese language course at the same university. They had learned Mandarin for six months and none of them had any study-abroad experience.
+Six female native (L1) Mandarin speakers and six female non-native (L2) Mandarin speakers participated in the study. The mean age of the L1 Mandarin speakers is `r mean_age$mean_age[1]` (range: 23-30) and that of the L2 Mandarin speakers is `r mean_age$mean_age[2]` (range: 18-28). Among L1 Mandarin speakers, two speakers are from northern Mainland China (Beijing and Tianjin), three speakers were from southern Mainland China (Nanjing, Chengdu and Chongqing), and one speaker was from Taiwan. The Taiwanese participant identified Mandarin as her most fluent language. All the six L2 Mandarin speakers’ native language was American English. They were all novice-low learners who enrolled in first-year accelerated Chinese language course at the same university. They had learned Mandarin for six months and none of them had any study-abroad experience. See Figure 5-6 for participant demographics.
+
+
 
 ## Speech materials 
 We prepared nine Chinese sentences for speech materials. Each sentence includes one of the following nine vowels: [yi], [yu], [wu], [e], [o], [en], [e], [ai], [ao]. Each vowel appears after the aspirated bilabial stop [p] with a high tone (55).
@@ -205,9 +207,30 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
 
 # References
 
+
+```{r figure5, echo= FALSE}
+demo <- import(here("data", "demographics.xlsx"),
+             setclass = "tbl_df")
+
+ggplot(data = demo, aes(x = "", y = age)) + 
+  geom_boxplot() +
+  theme_classic() 
+```
+
+\newpage
+```{r figure6, echo= FALSE}
+ggplot(demo, aes(x = height)) +
+  geom_bar() +
+  theme_classic() 
+```
+
+
 \begingroup
 \setlength{\parindent}{-0.5in}
 \setlength{\leftskip}{0.5in}
 
+
+
 <div id = "refs"></div>
 \endgroup
+
