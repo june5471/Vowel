@@ -119,10 +119,16 @@ It is generally agreed that Mandarin Chinese has a five-vowel system [see @hinto
 
 
 ![vocal tract](picture/mouth.jpg)
-	
+
+```{r mean_age}
+mean_age <- tidy_df %>% 
+  group_by(group) %>% 
+  summarize(mean_age = round(mean(age),2))
+```
+
 # Methods
 ##Participants
-Six female native (L1) Mandarin speakers and six female non-native (L2) Mandarin speakers participated in the study. The mean age of the L1 Mandarin speakers is `r (29+30+27+23+24+25)/6` (range: 23-30) and that of the L2 Mandarin speakers is `r (20+19+28+23+26+18)/6` (range: 18-28). Among L1 Mandarin speakers, two speakers are from northern Mainland China (Beijing and Tianjin), three speakers were from southern Mainland China (Nanjing, Chengdu and Chongqing), and one speaker was from Taiwan. The Taiwanese participant identified Mandarin as her most fluent language. All the six L2 Mandarin speakers’ native language was American English. They were all novice-low learners who enrolled in first-year accelerated Chinese language course at the same university. They had learned Mandarin for six months and none of them had any study-abroad experience.
+Six female native (L1) Mandarin speakers and six female non-native (L2) Mandarin speakers participated in the study. The mean age of the L1 Mandarin speakers is `r mean_age$mean_age[1]` (range: 23-30) and that of the L2 Mandarin speakers is `r mean_age$mean_age[2]` (range: 18-28). Among L1 Mandarin speakers, two speakers are from northern Mainland China (Beijing and Tianjin), three speakers were from southern Mainland China (Nanjing, Chengdu and Chongqing), and one speaker was from Taiwan. The Taiwanese participant identified Mandarin as her most fluent language. All the six L2 Mandarin speakers’ native language was American English. They were all novice-low learners who enrolled in first-year accelerated Chinese language course at the same university. They had learned Mandarin for six months and none of them had any study-abroad experience.
 
 ## Speech materials 
 We prepared nine Chinese sentences for speech materials. Each sentence includes one of the following nine vowels: [yi], [yu], [wu], [e], [o], [en], [e], [ai], [ao]. Each vowel appears after the aspirated bilabial stop [p] with a high tone (55).
