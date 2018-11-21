@@ -209,17 +209,19 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
 
 
 ```{r figure5, echo= FALSE}
+## figure 5 participant age
 demo <- import(here("data", "demographics.xlsx"),
              setclass = "tbl_df")
 
-ggplot(data = demo, aes(x = "", y = age)) + 
+ggplot(data = demo, aes(x = "", y = Age)) + 
   geom_boxplot() +
   theme_classic() 
 ```
 
 \newpage
 ```{r figure6, echo= FALSE}
-ggplot(demo, aes(x = height)) +
+## figure 6 participant height
+ggplot(demo, aes(x = Height)) +
   geom_bar() +
   theme_classic() 
 ```
