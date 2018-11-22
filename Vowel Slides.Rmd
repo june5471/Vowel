@@ -105,20 +105,63 @@ smry_df <- tidy_df %>%
 head(smry_df)
 ```
 
-## Results
-###Native speaker patterns
-Table 1 shows the mean F1 and F2 values of nine Chinese vowels for native speakers.
-
-```{r table1, echo= FALSE}
+## Jun's frustration1: Table
+```{r smrytable, echo = TRUE}
 smry_df %>% 
-  kable(format = "latex",
-        digits = 2,
-        caption = "Formant by volwels among non-native and native groups",
-        booktabs = T) 
-
-  # kable_styling(bootstrap_options = "striped", 
-  #               full_width = F) 
+  kable(format = "latex",digits = 2,caption = "Formant by volwels among non-native and native groups",booktabs = T)
+kable(smry_df)
 ```
+
+##Jun: spread 1
+```{r spread1, echo= TRUE}
+table_f1mean <- smry_df %>% 
+  select(1:3) %>% 
+  spread(vowel,F1_mean) 
+
+table_f1mean
+```
+
+##Jun: spread 2
+```{r spread2, echo= TRUE}
+table_f2mean <- smry_df %>%
+  select(1:2,4) %>% 
+  spread(vowel,F2_mean) 
+
+table_f2mean
+```
+
+##Jun: bind rows
+```{r bindrows, echo= TRUE}
+bind_rows(table_f1mean,table_f2mean) -> bindtables 
+bindtables
+```
+
+##Jun: add a new column 
+```{r add, echo= TRUE}
+bindtables["Mean"] <- c("F1","","F2","")
+bindtables
+```
+
+##Jun: move the column to the front
+```{r move, echo= TRUE}
+bindtables_new <- bindtables[colnames(bindtables)[c(11,1:10)]]
+bindtables_new
+```
+
+##Jun: Yay! A new table!
+```{r newtable, echo= TRUE}
+bindtables_new %>% 
+  kable(format = "latex",digits = 2,caption = "Formant by volwels among non-native and native groups", booktabs = T) 
+kable(bindtables_new)
+```
+
+## Jun's frustration2: IPA :(
+![IPA](https://i.kinja-img.com/gawker-media/image/upload/s--QVYSNn4G--/c_scale,f_auto,fl_progressive,q_80,w_800/v994hcgmyene5oix7jo2.jpg)
+
+
+## Jun's frustration2: IPA :(
+![IPA](http://www.heatherhightower.com/wp-content/uploads/2014/10/IPA-face-image.jpeg)
+
 
 ```{r figure1, echo= FALSE}
 ##figure 1 
