@@ -144,7 +144,20 @@ Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each 
 Table 1 shows the mean F1 and F2 values of nine Chinese vowels for native speakers. Regarding F2 values, data shows that [yi] had the highest F2 values for all native speakers, and [wu] had the lowest F2 values for NS2 and NS3, but not for NS1. As for F1 values, three NS also had different lowest and highest values. While [yi] had the lowest F1 value and [ao] had the highest F1 value for NS1 and NS3, NS2’s [yu] had the lowest F1 value and her [ai] had the highest F1 value. 
 
 ```{r table1, echo= FALSE}
-smry_df %>% 
+table_f1mean <- smry_df %>% 
+  select(1:3) %>% 
+  spread(vowel,F1_mean) 
+
+table_f2mean <- smry_df %>%
+  select(1:2,4) %>% 
+  spread(vowel,F2_mean) 
+
+bind_rows(table_f1mean,table_f2mean) -> bindtables 
+
+bindtables["Mean"] <- c("F1","F1","F2","F2")
+bindtables_new <- bindtables[colnames(bindtables)[c(11,1:10)]]
+
+bindtables_new %>% 
   kable(format = "latex",
         digits = 2,
         caption = "Formant by volwels among non-native and native groups",
