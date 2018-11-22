@@ -18,18 +18,16 @@ output: ioslides_presentation
 - Vowel space in Chinese? 
 
 ## Current Study
-This study investigates
-  + native Chinese speakers' vowel distribution
-  + non-native Chinese speakers' vowel distribution (L1 English)
+This study investigates **native Chinese speakers'** vowel distribution and **non-native Chinese speakers'** vowel distribution
 
 ![vocal tract](picture/mouth.jpg)
 
 ## Methods
 ### Participants
-- 6 female native (L1) Mandarin speakers & 6 female non-native (L2) Mandarin speakers
+- 6 female native Mandarin speakers (NS) & 6 female non-native Mandarin speakers (NNS)
 - Average age
-  a. L1 Mandarin speakers was 26.3 (range: 23-30)
-  b. L2 Mandarin speakers was 22.3 (range: 18-28)
+  a. NS Mandarin speakers was 26.3 (range: 23-30)
+  b. NNS Mandarin speakers was 22.3 (range: 18-28)
 - Length of study: 6 months 
 
 ## Methods 
@@ -41,7 +39,7 @@ This study investigates
 ## Methods
 ### Procedure
 - Sentence-repetition oral task
-- Non-native speakers (NNS) and native Chinese speakers (NS) were asked to read the sentences twice.
+- Non-native speakers and native Chinese speakers were asked to read the sentences twice.
 - Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram through Praat.
 
 ## Data Organization
@@ -70,6 +68,21 @@ df <- import(here("data", "datanew.xlsx"),
 head(df)
 
 ```
+
+## Frustration from very begining
+```{r echo = TRUE}
+head(df, n = 3)
+```
+- Name is not clean..... :)
+- X__1 contains id and group..... :(
+- Each row is not an observation..... :| 
+
+##
+```{r echo = TRUE}
+tail(df, n = 3)
+```
+- Duplicate id number..... :| 
+
 ```{r tidy_data, include = FALSE}
 tidy_df <- df %>% 
   clean_names(case = "snake") %>% 
