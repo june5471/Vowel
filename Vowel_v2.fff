@@ -3,7 +3,9 @@
 
 \centering
 \includegraphics{picture/mouth.jpg}
-\caption{vocal tract}
+\caption{Vocal Tract. Retrieved from
+\url{http://www.uni-bielefeld.de/lili/personen/vgramley/teaching/HTHS/acoustic_2010.html}.
+by Bielefeld University}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
