@@ -118,14 +118,14 @@ smry_df <- tidy_df %>%
 head(smry_df)
 ```
 
-## Jun's frustration1: Table
+## Jun's frustration: Table
 ```{r smrytable, echo = TRUE}
 smry_df %>% 
-  kable(format = "latex",digits = 2,caption = "Formant by volwels among non-native and native groups",booktabs = T)
+  kable(format = "html",digits = 2,caption = "Table1",booktabs = T)
 kable(smry_df)
 ```
 
-##Jun: spread 1
+##Spread: F1 mean
 ```{r spread1, echo= TRUE}
 table_f1mean <- smry_df %>% 
   select(1:3) %>% 
@@ -134,7 +134,7 @@ table_f1mean <- smry_df %>%
 table_f1mean
 ```
 
-##Jun: spread 2
+##Spread: F2 mean
 ```{r spread2, echo= TRUE}
 table_f2mean <- smry_df %>%
   select(1:2,4) %>% 
@@ -143,39 +143,36 @@ table_f2mean <- smry_df %>%
 table_f2mean
 ```
 
-##Jun: bind rows
+##New fuction: bind_rows
 ```{r bindrows, echo= TRUE}
 bind_rows(table_f1mean,table_f2mean) -> bindtables 
 bindtables
 ```
 
-##Jun: add a new column 
+##New: add a column and rename the items in this column
 ```{r add, echo= TRUE}
 bindtables["Mean"] <- c("F1","","F2","")
 bindtables
 ```
 
-##Jun: move the column to the front
+##New: move the column to the front
 ```{r move, echo= TRUE}
 bindtables_new <- bindtables[colnames(bindtables)[c(11,1:10)]]
 bindtables_new
 ```
 
-##Jun: Yay! A new table!
+##Yay! A better table!
 ```{r newtable, echo= TRUE}
 bindtables_new %>% 
-  kable(format = "latex",digits = 2,caption = "Formant by volwels among non-native and native groups", booktabs = T) 
-kable(bindtables_new)
+  kable(format = "html",digits = 2,caption = "Table 1", booktabs = T) 
 ```
 
-## Jun's frustration2: IPA :(
-![IPA](https://i.kinja-img.com/gawker-media/image/upload/s--QVYSNn4G--/c_scale,f_auto,fl_progressive,q_80,w_800/v994hcgmyene5oix7jo2.jpg)
+## Challenges we are still facing: M (SD)
+![An ideal table](http://psycnet.apa.org/ftasset/journals/edu/89/4/images/edu_89_4_631_tbl2a.gif)
 
 
-## Jun's frustration2: IPA :(
-![IPA](http://www.heatherhightower.com/wp-content/uploads/2014/10/IPA-face-image.jpeg)
 
-
+#Result
 ```{r figure1, echo= FALSE}
 ##figure 1 
 tidy_df %>% 
