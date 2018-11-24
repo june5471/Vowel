@@ -1,7 +1,11 @@
 ---
 title: "Final Project"
 author: "Jun, Steffi, Teresa, Ting-Fen"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+    incremental: true
+
+
 ---
 
 # Data Visdualization on Madarin Vowels
@@ -54,6 +58,7 @@ library("knitr")
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       error = TRUE,
+                      echo = TRUE,
                       fig.width = 6.5,
                       fig.height = 8
                       )
@@ -66,28 +71,43 @@ df <- import(here("data", "datanew.xlsx"),
              setclass = "tbl_df")
 
 head(df)
-
 ```
 
-## Frustration from very begining
-```{r echo = TRUE}
-head(df, n = 3)
+## Looking at Our Data
+```{r echo = FALSE}
+head(df)
 ```
-- Name is not clean..... :)
-- X__1 contains id and group..... :(
-- Each row is not an observation..... :| 
+* Data is definitely NOT tidy!
+    + Variables (F1, F2) don't have thier own columns.
+    + Each row includes multiple observations from multiple vowels.
+  
+* Confidence level: 5/5 with **over-gathering** 
 
-##
-```{r echo = TRUE}
-tail(df, n = 3)
+## What else? (1)
+```{r}
+names(df)
 ```
-- Duplicate id number..... :| 
+*  Varibles' name are not consistent.
+    + Confidence level: 5/5 with `janitor::clean_names`
 
-```{r tidy_data, include = FALSE}
-tidy_df <- df %>% 
+## What else? (2)
+```{r}
+print(df$X__1)
+```
+* X__1 contains **id** and **group** (NS & NNS).
+    + Confidence level: 2/5 with `tidyverse::separate`
+        - sep = ?
+    
+* Duplicate id number for NS and NNS
+    + Confidence level: 0/5 
+        - use `tidyverse::case_when` ?
+
+## Tidy data step 1:  fix x__1
+```{r tidy_data }
+tidy_df1 <- df %>% 
   clean_names(case = "snake") %>% 
   separate(x_1, into = c("group", "id"),
-           sep = "(?<=[A-Za-z])(?=[0-9])") %>%  #seperate x_1 to group (NS vs. NNS) & id
+           sep = "(?<=[A-Za-z])(?=[0-9])") %>%  #sep = -1 also works
   mutate(id = case_when(
    group == "NNS" & id == '1' ~  '7',
    group == "NNS" & id == '2' ~  '8',
@@ -95,20 +115,92 @@ tidy_df <- df %>%
    group == "NNS" & id == '4' ~  '10',
    group == "NNS" & id == '5' ~  '11',
    group == "NNS" & id == '6' ~  '12',
-   )) %>%  # fix duplicate id numbers
+   TRUE ~ id
+   )) %>% 
   mutate(group = as.factor(group),
-        id = as.numeric(id)) %>%  #rename variables & set the variable types
+        id = as.numeric(id))   
+```
+
+## 
+```{r}
+head(df)
+head(tidy_df1)
+```
+
+
+## Tidy data step 2:  gather
+```{r}
+tidy_df2 <- tidy_df1 %>% 
   gather(vowel, value, -1:-6) %>%
-  mutate(vowel = as.factor(vowel))%>%
+  mutate(vowel = as.factor(vowel)) 
+
+head(tidy_df2)
+```
+
+## Tidy data step 3:  spread
+```{r}
+tidy_df <- tidy_df2 %>% 
   spread(mean, value) %>%
-  filter(gender == "F") %>%   #redundant, just for meet rubric
-  select(id, group, age, height, vowel, F1, F2) %>% #reorder variables & discard gender
+  #reorder variables & discard gender
+  select(id, group, age, height, vowel, F1, F2) %>% 
   arrange(id)
 
 head(tidy_df)
+```
 
+
+## Plot Data Like This
+<div class="centered">
+![vocal tract](picture/mouth.jpg)
+</div>
+* Raw Data (data points from each individual)
+* Group Data (mean values from each group)
+
+##
+```{r figure1, results='hide'}
+figure1_pre <- tidy_df %>% 
+  ggplot(aes(x = F2, y = F1, color = vowel)) + 
+  geom_point(size = 3) +
+  facet_wrap(~ group) + 
+  theme_classic() 
 
 ```
+
+##
+```{r echo = FALSE, fig.height = 5}
+figure1_pre
+```
+* Couple issues:
+    + 1. X and Y axes need to be rotated.
+    + 2. Labels are not in a conventional order.
+
+##
+```{r}
+figure1_post <- tidy_df %>% 
+  ggplot(aes(x = F2, y = F1, color = vowel)) + 
+  geom_point(size = 3) +
+  facet_wrap(~ group) + 
+  theme_classic() +
+  
+  #reverse x and y to meet the perception of sounds
+  scale_x_reverse() +  
+  scale_y_reverse() +
+  
+  #reorder vowel based on IPA order
+  scale_color_discrete(breaks = c("yi", "yu", 
+                                  "wu", "ye", 
+                                  "wo", "en", 
+                                  "e", "ai", 
+                                  "ao"))  
+```
+
+##
+```{r echo = FALSE, fig.height = 5}
+figure1_post
+```
+
+
+##
 ```{r smr_data, include= FALSE}
 smry_df <- tidy_df %>% 
   group_by(group, vowel) %>% 
@@ -117,6 +209,36 @@ smry_df <- tidy_df %>%
 
 head(smry_df)
 ```
+
+##
+```{r figure2, echo= FALSE}
+smry_df %>% 
+  ggplot(aes(x = F2_mean, y = F1_mean, 
+             label = vowel, color = group)) +
+    geom_label() +
+    scale_x_reverse() +  
+    scale_y_reverse() +
+    theme_classic()
+
+```
+
+##
+```{r figure3, echo = FALSE}
+ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
+  geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
+                                 label = vowel, fill = group),
+             alpha = 0.2) +
+  geom_point(aes(color = vowel, shape = group),
+             size = 3, alpha = 0.4) +
+  stat_ellipse(aes(color = vowel), level = 0.67) +
+  scale_x_reverse() +  
+  scale_y_reverse() +
+  theme_classic() +
+  guides(color = FALSE)
+
+```
+
+
 
 ## Jun's frustration: Table
 ```{r smrytable, echo = TRUE}
@@ -170,48 +292,4 @@ bindtables_new %>%
 ## Challenges we are still facing: M (SD)
 ![An ideal table](http://psycnet.apa.org/ftasset/journals/edu/89/4/images/edu_89_4_631_tbl2a.gif)
 
-
-
-#Result
-```{r figure1, echo= FALSE}
-##figure 1 
-tidy_df %>% 
-  ggplot(aes(x = F2, y = F1, color = vowel)) + 
-  geom_point(size = 3) +
-  scale_x_reverse() +  #reverse x and y to meet the perception of sounds
-  scale_y_reverse() +
-  facet_wrap(~ group) + 
-  theme_classic() +
-  scale_color_discrete(breaks = c("yi", "yu", 
-                                  "wu", "ye", 
-                                  "wo", "en", 
-                                  "e", "ai", 
-                                  "ao"))  #reorder vowel based on IPA order
-```
-
-```{r figure2, echo= FALSE}
-smry_df %>% 
-  ggplot(aes(x = F2_mean, y = F1_mean, 
-             label = vowel, color = group)) +
-    geom_label() +
-    scale_x_reverse() +  
-    scale_y_reverse() +
-    theme_classic()
-
-```
-
-```{r figure3, echo = FALSE}
-ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
-  geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
-                                 label = vowel, fill = group),
-             alpha = 0.2) +
-  geom_point(aes(color = vowel, shape = group),
-             size = 3, alpha = 0.4) +
-  stat_ellipse(aes(color = vowel), level = 0.67) +
-  scale_x_reverse() +  
-  scale_y_reverse() +
-  theme_classic() +
-  guides(color = FALSE)
-
-```
 
