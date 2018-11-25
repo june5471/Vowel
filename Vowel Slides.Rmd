@@ -46,7 +46,8 @@ This study investigates **native Chinese speakers'** vowel distribution and **no
 - Non-native speakers and native Chinese speakers were asked to read the sentences twice.
 - Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram through Praat.
 
-## Data Organization
+# Teresa's R Journey
+
 ```{r setup, include = FALSE}
 library("papaja")
 library("tidyverse")
@@ -81,13 +82,13 @@ head(df)
     + Variables (F1, F2) don't have thier own columns.
     + Each row includes multiple observations from multiple vowels.
   
-* Confidence level: 5/5 with **over-gathering** 
+* Confidence level: 5/5 with `dplyr::spread` and `dplyr::gather` 
 
 ## What else? (1)
 ```{r}
 names(df)
 ```
-*  Varibles' name are not consistent.
+*  Varibles' name are not clean.
     + Confidence level: 5/5 with `janitor::clean_names`
 
 ## What else? (2)
@@ -95,12 +96,12 @@ names(df)
 print(df$X__1)
 ```
 * X__1 contains **id** and **group** (NS & NNS).
-    + Confidence level: 2/5 with `tidyverse::separate`
+    + Confidence level: 2/5 with `dplyr::separate`
         - sep = ?
     
 * Duplicate id number for NS and NNS
     + Confidence level: 0/5 
-        - use `tidyverse::case_when` ?
+        - use `dplyr::case_when` ?
 
 ## Tidy data step 1:  fix x__1
 ```{r tidy_data }
@@ -123,8 +124,8 @@ tidy_df1 <- df %>%
 
 ## 
 ```{r}
-head(df)
-head(tidy_df1)
+head(df, n = 3)
+head(tidy_df1, n = 3)
 ```
 
 
@@ -156,7 +157,7 @@ head(tidy_df)
 * Raw Data (data points from each individual)
 * Group Data (mean values from each group)
 
-##
+## Code for Figure 1 (for Raw Data)
 ```{r figure1, results='hide'}
 figure1_pre <- tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
@@ -167,14 +168,15 @@ figure1_pre <- tidy_df %>%
 ```
 
 ##
-```{r echo = FALSE, fig.height = 5}
+```{r echo = FALSE, fig.height = 4.5}
 figure1_pre
 ```
-* Couple issues:
-    + 1. X and Y axes need to be rotated.
-    + 2. Labels are not in a conventional order.
 
-##
+* Couple issues:
+    + X and Y axes need to be rotated.
+    + Labels are not in a conventional order.
+
+## Refined Code for Figure 1 
 ```{r}
 figure1_post <- tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
@@ -191,7 +193,8 @@ figure1_post <- tidy_df %>%
                                   "wu", "ye", 
                                   "wo", "en", 
                                   "e", "ai", 
-                                  "ao"))  
+                                  "ao")) +
+  labs(title = "Vowel Distribution among All Non-native and Native Speakers")
 ```
 
 ##
@@ -199,32 +202,56 @@ figure1_post <- tidy_df %>%
 figure1_post
 ```
 
+* Inefficient references due to 9 vowels. 
+
+## 
+<div class="centered">
+![](picture/cake.gif)
+</div>
 
 ##
-```{r smr_data, include= FALSE}
+<div class="centered">
+![](picture/notcake.gif)
+</div>
+
+## Acknowledge
+* Google
+* Special Thank You to Joey Stanley !
+    + [Joey's blog](http://joeystanley.com/blog/making-vowel-plots-in-r-part-1) 
+    + Making vowel plots in R
+
+## Code for Figure 2 (for Group Mean) 
+```{r figure2, results ='hide'}
 smry_df <- tidy_df %>% 
   group_by(group, vowel) %>% 
   summarize_at(vars(F1, F2), funs(mean, sd)) 
   
 
-head(smry_df)
-```
-
-##
-```{r figure2, echo= FALSE}
-smry_df %>% 
-  ggplot(aes(x = F2_mean, y = F1_mean, 
-             label = vowel, color = group)) +
-    geom_label() +
+figure2 <- smry_df %>% 
+  ggplot(aes(x = F2_mean, y = F1_mean)) +
+    
+    # adds text directly to the plot
+    geom_label(aes(label = vowel, color = group)) +
+  
     scale_x_reverse() +  
     scale_y_reverse() +
-    theme_classic()
+    theme_classic() +
+    labs(title = "Mean Vowel Distribution between Non-native and Native Speakers",
+         x = "F2",
+         y = "F1")
 
 ```
 
 ##
-```{r figure3, echo = FALSE}
-ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
+```{r fig.height = 5}
+figure2
+```
+
+
+## More to Explore !
+```{r figure3, echo = FALSE, fig.height = 5 }
+figure3 <- 
+  ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
   geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
                                  label = vowel, fill = group),
              alpha = 0.2) +
@@ -234,12 +261,33 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
   scale_x_reverse() +  
   scale_y_reverse() +
   theme_classic() +
+  labs(title = "Individual and Group Vowel Distribution",
+       subtitle = "The size of output ellipses in standard deviations.") +
   guides(color = FALSE)
 
+figure3
+```
+
+##
+```{r, eval = FALSE, echo = TRUE}
+figure3 <- 
+  ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
+  geom_label(data = smry_df, aes(x = F2_mean, y = F1_mean, 
+                                 label = vowel, fill = group),
+             alpha = 0.2) +
+  geom_point(aes(color = vowel, shape = group),
+             size = 3, alpha = 0.4) +
+  stat_ellipse(aes(color = vowel), level = 0.67) +
+  scale_x_reverse() +  
+  scale_y_reverse() +
+  theme_classic() +
+  labs(title = "Individual and Group Vowel Distribution",
+       subtitle = "The size of output ellipses in standard deviations.") +
+  guides(color = FALSE)
 ```
 
 
-
+# Jun's Journey
 ## Jun's frustration: Table
 ```{r smrytable, echo = TRUE}
 smry_df %>% 
