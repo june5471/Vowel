@@ -341,3 +341,96 @@ bindtables_new %>%
 ![An ideal table](http://psycnet.apa.org/ftasset/journals/edu/89/4/images/edu_89_4_631_tbl2a.gif)
 
 
+# Steffi's R Journey
+## Steffi's Challenge: IPA symbols
+* The importance of IPA symbols
+    + How to **SHOW** IPA symbols in RStudio?
+    + How to **KNIT** IPA symbols to PDF in APA format?
+
+<div style="width:300px; height:100px", class="centered">
+![](picture/IPA.jpg)
+
+## Inserting IPA symbols
+```{r packages, echo=TRUE}
+install.packages("linguisticsdown")
+devtools::install_github("liao961120/linguisticsdown")
+```
+
+## linguisticsdown 1.1.0
+![Write IPA symbols with Phonetic Features](https://liao961120.github.io/linguisticsdown/man/figs/features.gif)
+
+## Editing Output & Header
+* output: 
+- papaja::apa6_pdf:
+- toc: true
+- toc_depth: 5
+- latex_engine: xelatex
+- includes:
+- in_header: header.tex
+
+***
+* header-includes:
+-  \DeclareUnicodeCharacter{251}{ }
+-  \DeclareUnicodeCharacter{259}{ }
+-  \DeclareUnicodeCharacter{264}{ }  
+-  \usepackage{tipa}
+ 
+```tex
+\newfontfamily\ipa{Doulos SIL} 
+```
+
+## Problem solved
+- IPA symbols cannot be properly rendered when output to PDF.
+
+### IPA symbols in R Markdown
+<div class="centered">
+![](picture/dance.gif)
+
+***
+<div class="centered">
+![](picture/fix.jpg)
+
+
+<div class="centered">
+![](picture/text.jpg)
+
+***
+<div class="centered">
+![](picture/figure1.jpg)
+
+***
+<div class="centered">
+![](picture/figure2.jpg)
+
+***
+<div class="centered">
+![](picture/figure3.jpg)
+
+## Challenges we are still facing: output issue
+* 3 out of 9 symbols disappeared in plots.
+
+***
+<div class="centered">
+![](picture/table.jpg)
+
+***
+<div class="centered">
+![](picture/figures.jpg)
+
+***
+<div class="centered">
+![](picture/figure_false.jpg)
+
+## Substantive findings
+* How to support Linguistics-related doucument writing in R Markdown?
+    + linguisticsdown
+    + phonTools
+    + ....
+    
+## Next R hurdle to tackle
+* Conditional compilation
+- Templates: APA article & Support_IPA
+* In-line codes for plots? 
+- r linguisticsdown::cond_cmpl("ə")
+
+
