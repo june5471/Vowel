@@ -354,7 +354,7 @@ bindtables_new %>%
     + How to **KNIT** IPA symbols to PDF in APA format?
 
 <div class="centered">
-![](picture/IPA.png)
+![](picture/IPA.jpg)
 
 ## Inserting IPA symbols
 ```{r packages, echo=TRUE}
@@ -398,39 +398,39 @@ IPA symbols cannot be properly rendered when output to PDF.
 
 ***
 <div class="centered">
-![](picture/fix.png)
+![](picture/fix.jpg)
 
 
 
 <div class="centered">
-![](picture/text.png)
+![](picture/text.jpg)
 
 ***
 <div class="centered">
-<img src="picture/figure1.png", align="middle", height="580", width="600", margin="0 auto"/>
+<img src="picture/figure1.jpg", align="middle", height="580", width="600", margin="0 auto"/>
 
 ***
 <div class="centered">
-<img src="picture/figure2.png", align="middle", height="580", width="600", margin="0 auto"/>
+<img src="picture/figure2.jpg", align="middle", height="580", width="600", margin="0 auto"/>
 
 ***
 <div class="centered">
-<img src="picture/figure3.png", align="middle", height="580", width="600", margin="0 auto"/>
+<img src="picture/figure3.jpg", align="middle", height="580", width="600", margin="0 auto"/>
 
 ## Challenges we are still facing: output issue
 * 3 out of 9 symbols disappeared in plots.
 
 ***
 <div class="centered">
-<img src="picture/table.png", align="middle", height="580", width="500", margin="0 auto"/>
+<img src="picture/table.jpg", align="middle", height="580", width="500", margin="0 auto"/>
 
 ***
 <div class="centered">
-<img src="picture/figures.png", align="middle", height="580", width="800", margin="0 auto"/>
+<img src="picture/figures.jpg", align="middle", height="580", width="800", margin="0 auto"/>
 
 ***
 <div class="centered">
-<img src="picture/figure_false.png", align="middle", height="600", width="600", margin="0 auto"/>
+<img src="picture/figure_false.jpg", align="middle", height="600", width="600", margin="0 auto"/>
 
 ## Substantive findings
 * How to support Linguistics-related doucument writing in R Markdown?
