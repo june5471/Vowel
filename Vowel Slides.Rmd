@@ -1,6 +1,6 @@
 ---
 title: "Final Project"
-author: "Jun, Steffi, Teresa, Ting-Fen"
+author: "Jun, Steffi, Teresa, Ting-fen"
 output: 
   ioslides_presentation:
     incremental: true
@@ -46,31 +46,27 @@ This study investigates **native Chinese speakers'** vowel distribution and **no
 - Non-native speakers and native Chinese speakers were asked to read the sentences twice.
 - Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram through Praat.
 
-## Ting-fen: Additions
+# Ting-fen's Journey
+## Additions
 
 ![](additions.png)
 
 
-## Ting-fen: Deletions
+## Deletions
 ![](deletions.png)
 
-## Ting-fen: 
-Challenges faced along the way
+## Challenges faced along the way: 
 ![](emoji.png)
 
 
-## Ting-fen:
-- Victories 
-<br />
+## Victories:
+Google
 @datalorax
 
 
 
 
-## Ting-fen 
-Challenges still facing 
-<br />
-Next R hurdle to tackle
+## Challenges facing & Next R Hurdle to Tackle 
 ![](neuro.png)
 
 
