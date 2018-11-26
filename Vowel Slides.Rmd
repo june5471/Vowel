@@ -147,12 +147,6 @@ tidy_df1 <- df %>%
         id = as.numeric(id))   
 ```
 
-## 
-```{r}
-head(df, n = 3)
-head(tidy_df1, n = 3)
-```
-
 
 ## Tidy data step 2:  gather
 ```{r}
@@ -178,11 +172,9 @@ head(tidy_df)
 ## Plot Data Like This
 <div class="centered">
 ![vocal tract](picture/mouth.jpg)
-</div>
-* Raw Data (data points from each individual)
-* Group Data (mean values from each group)
 
-## Code for Figure 1 (for Raw Data)
+
+## Code for Figure 
 ```{r figure1, results='hide'}
 figure1_pre <- tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
@@ -201,7 +193,7 @@ figure1_pre
     + X and Y axes need to be rotated.
     + Labels are not in a conventional order.
 
-## Refined Code for Figure 1 
+## Refined Code  
 ```{r}
 figure1_post <- tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
@@ -227,6 +219,7 @@ figure1_post <- tidy_df %>%
 figure1_post
 ```
 
+* Hard to see group differences.
 * Inefficient references due to 9 vowels. 
 
 ## 
@@ -268,7 +261,7 @@ figure2 <- smry_df %>%
 ```
 
 ##
-```{r fig.height = 5}
+```{r echo =  FALSE, fig.height = 5}
 figure2
 ```
 
