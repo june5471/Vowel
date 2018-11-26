@@ -46,6 +46,35 @@ This study investigates **native Chinese speakers'** vowel distribution and **no
 - Non-native speakers and native Chinese speakers were asked to read the sentences twice.
 - Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram through Praat.
 
+## Ting-fen: Additions
+
+![](additions.png)
+
+
+## Ting-fen: Deletions
+![](deletions.png)
+
+## Ting-fen: 
+Challenges faced along the way
+![](emoji.png)
+
+
+## Ting-fen:
+- Victories 
+<br />
+@datalorax
+
+
+
+
+## Ting-fen 
+Challenges still facing 
+<br />
+Next R hurdle to tackle
+![](neuro.png)
+
+
+
 # Teresa's R Journey
 
 ```{r setup, include = FALSE}
