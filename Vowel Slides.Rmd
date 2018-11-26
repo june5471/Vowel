@@ -1,14 +1,19 @@
 ---
 title: "Final Project"
+<<<<<<< HEAD
+author: "Jun, Steffi, Teresa, Ting-Fen"
+output:
+=======
 author: "Jun, Steffi, Teresa, Ting-fen"
 output: 
+>>>>>>> dfb50a115afed0c8304480141865a190a0d1d8db
   ioslides_presentation:
-    incremental: true
-
-
+    incremental: yes
+  slidy_presentation:
+    incremental: yes
 ---
 
-# Data Visdualization on Madarin Vowels
+# Data Visualization on Mandarin Vowels
 
 ## Introduction
 
@@ -365,8 +370,8 @@ bindtables_new %>%
     + How to **SHOW** IPA symbols in RStudio?
     + How to **KNIT** IPA symbols to PDF in APA format?
 
-<div style="width:300px; height:100px", class="centered">
-![](picture/IPA.jpg)
+<div class="centered">
+![](picture/IPA.png)
 
 ## Inserting IPA symbols
 ```{r packages, echo=TRUE}
@@ -375,30 +380,34 @@ devtools::install_github("liao961120/linguisticsdown")
 ```
 
 ## linguisticsdown 1.1.0
-![Write IPA symbols with Phonetic Features](https://liao961120.github.io/linguisticsdown/man/figs/features.gif)
+Write IPA symbols with Phonetic Features
 
-## Editing Output & Header
+<div class="centered">
+<img src="https://liao961120.github.io/linguisticsdown/man/figs/features.gif", align="middle", height="500", width="700", margin="0 auto"/>
+
+## Editing Output
 * output: 
-- papaja::apa6_pdf:
-- toc: true
-- toc_depth: 5
-- latex_engine: xelatex
-- includes:
-- in_header: header.tex
+    + papaja::apa6_pdf:
+    + toc: true
+    + toc_depth: 5
+    + latex_engine: xelatex
+    + includes:
+    + in_header: header.tex
 
-***
+## Editing Header
 * header-includes:
--  \DeclareUnicodeCharacter{251}{ }
--  \DeclareUnicodeCharacter{259}{ }
--  \DeclareUnicodeCharacter{264}{ }  
--  \usepackage{tipa}
+    + DeclareUnicodeCharacter{251}{ }
+    + DeclareUnicodeCharacter{259}{ }
+    + DeclareUnicodeCharacter{264}{ }  
+    + usepackage{tipa}
  
+* Font:
 ```tex
 \newfontfamily\ipa{Doulos SIL} 
 ```
 
 ## Problem solved
-- IPA symbols cannot be properly rendered when output to PDF.
+IPA symbols cannot be properly rendered when output to PDF.
 
 ### IPA symbols in R Markdown
 <div class="centered">
@@ -406,38 +415,39 @@ devtools::install_github("liao961120/linguisticsdown")
 
 ***
 <div class="centered">
-![](picture/fix.jpg)
+![](picture/fix.png)
+
 
 
 <div class="centered">
-![](picture/text.jpg)
+![](picture/text.png)
 
 ***
 <div class="centered">
-![](picture/figure1.jpg)
+<img src="picture/figure1.png", align="middle", height="580", width="600", margin="0 auto"/>
 
 ***
 <div class="centered">
-![](picture/figure2.jpg)
+<img src="picture/figure2.png", align="middle", height="580", width="600", margin="0 auto"/>
 
 ***
 <div class="centered">
-![](picture/figure3.jpg)
+<img src="picture/figure3.png", align="middle", height="580", width="600", margin="0 auto"/>
 
 ## Challenges we are still facing: output issue
 * 3 out of 9 symbols disappeared in plots.
 
 ***
 <div class="centered">
-![](picture/table.jpg)
+<img src="picture/table.png", align="middle", height="580", width="500", margin="0 auto"/>
 
 ***
 <div class="centered">
-![](picture/figures.jpg)
+<img src="picture/figures.png", align="middle", height="580", width="800", margin="0 auto"/>
 
 ***
 <div class="centered">
-![](picture/figure_false.jpg)
+<img src="picture/figure_false.png", align="middle", height="600", width="600", margin="0 auto"/>
 
 ## Substantive findings
 * How to support Linguistics-related doucument writing in R Markdown?
