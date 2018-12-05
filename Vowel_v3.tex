@@ -29,46 +29,6 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -176,10 +136,6 @@ native-like or non-native-like patterns.
 ## Error in contrib.url(repos, "source"): trying to use CRAN without setting a mirror
 \end{verbatim}
 
-\begin{verbatim}
-## Error in contrib.url(repos, "source"): trying to use CRAN without setting a mirror
-\end{verbatim}
-
 \newpage
 
 \section{Introduction}\label{introduction}
@@ -246,7 +202,7 @@ Praat program on the same laptop. After the measurement, the mean F1 and
 F2 values were plotted in charts using the program R to generate vowel
 distribution for each speaker.
 
-\section{Results and discussion}\label{results-and-discussion}
+\section{Results and Discussion}\label{results-and-discussion}
 
 \subsection{Native speaker patterns}\label{native-speaker-patterns}
 
@@ -259,41 +215,18 @@ value and {[}\ipatext{ɑ}{]} had the highest F1 value for NS1 and NS3,
 NS2's {[}y{]} had the lowest F1 value and her {[}a{]} had the highest F1
 value.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{\textbackslash{}newfontfamily\textbackslash{}ipa}\NormalTok{\{Doulos SIL\} }
-\end{Highlighting}
-\end{Shaded}
-
 \begin{table}
 
 \caption{\label{tab:table1}Formant by volwels among non-native and native groups}
 \centering
-\begin{tabular}[t]{llrrrr}
+\begin{tabular}[t]{llrrrrrrrrr}
 \toprule
-group & vowel & F1\_mean & F2\_mean & F1\_sd & F2\_sd\\
+Mean & group & a & ɑ & e & ə & ɤ & i & o & u & y\\
 \midrule
-NNS & a & 913.33 & 1513.83 & 47.14 & 161.28\\
-NNS & ɑ & 901.50 & 1377.00 & 63.86 & 107.69\\
-NNS & e & 520.67 & 2320.00 & 65.50 & 95.07\\
-NNS & ə & 651.33 & 1980.00 & 88.59 & 166.70\\
-NNS & ɤ & 640.33 & 1702.33 & 70.43 & 238.62\\
-\addlinespace
-NNS & i & 335.67 & 2646.50 & 46.03 & 100.61\\
-NNS & o & 551.50 & 1043.67 & 49.79 & 61.90\\
-NNS & u & 416.00 & 1122.83 & 69.62 & 196.96\\
-NNS & y & 321.50 & 1806.83 & 31.25 & 186.00\\
-NS & a & 910.33 & 1655.50 & 115.38 & 142.20\\
-\addlinespace
-NS & ɑ & 848.00 & 1305.17 & 59.50 & 147.96\\
-NS & e & 556.83 & 2486.50 & 38.02 & 128.39\\
-NS & ə & 717.67 & 1850.50 & 40.10 & 101.96\\
-NS & ɤ & 596.83 & 1289.67 & 105.92 & 152.62\\
-NS & i & 308.33 & 2916.17 & 30.23 & 73.78\\
-\addlinespace
-NS & o & 554.50 & 908.67 & 48.53 & 76.63\\
-NS & u & 335.00 & 840.00 & 15.63 & 56.02\\
-NS & y & 309.17 & 2420.83 & 15.17 & 237.25\\
+F1 & NNS & 913.33 & 901.50 & 520.67 & 651.33 & 640.33 & 335.67 & 551.50 & 416.00 & 321.50\\
+F1 & NS & 910.33 & 848.00 & 556.83 & 717.67 & 596.83 & 308.33 & 554.50 & 335.00 & 309.17\\
+F2 & NNS & 1513.83 & 1377.00 & 2320.00 & 1980.00 & 1702.33 & 2646.50 & 1043.67 & 1122.83 & 1806.83\\
+F2 & NS & 1655.50 & 1305.17 & 2486.50 & 1850.50 & 1289.67 & 2916.17 & 908.67 & 840.00 & 2420.83\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -301,7 +234,7 @@ NS & y & 309.17 & 2420.83 & 15.17 & 237.25\\
 Clearer vowel distribution for each native speaker can be seen in the
 formant plots (Figure 1-3). According to the ``vowel dispersion
 principle'', the vowel quadrilateral can be viewed as ``a perceptual
-space in which vowels are located in the oral cavity'' (Ashby and
+space in which vowels are located in the oral cavity'' (see Ashby \&
 Maidment, 2005). In this study, the vowel quadrilateral is shown as
 formant plots where the Y-axis is F1 (Hz) that corresponds to the height
 of the tongue position; while the X-axis is F2 (Hz) that indicates the
@@ -325,10 +258,45 @@ backness of the tongue position for each vowel (Figure 1-3).
 \caption{}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics{Vowel_v3_files/figure-latex/figure4-1.pdf}
+\caption{}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{Vowel_v3_files/figure-latex/figure5-1.pdf}
+\caption{}
+\end{figure}
+
 \subsection{Second language
 examination}\label{second-language-examination}
 
+The vowel productions are different in NS and NNS groups (Table 1). In
+terms of F1, the height of the tongue placement, NNS typically produce a
+higher F1 than NS, i.e. {[}a{]}, {[}e{]}, {[}u{]}, with the exception of
+{[}ə{]}, where NNS's F1 is lower. This suggests that NNS have a tendency
+to place the tongue at a higher position during the vowel production
+than NS. Variations in the F2 production, the backness of the tongue,
+are also evident between NS and NNS. In general, NNS exhibit a higher F2
+in {[}e{]}, {[}o{]}, {[}u{]} than NS except for {[}y{]}. The differences
+indicate that NNS, when producing vowels, exhibit a more backward
+lingual placement than NS. It is clear that second language learners of
+Manradin present with a English-colored vowel production when compared
+to the native speakers.
+
 \section{Conclusion}\label{conclusion}
+
+The present study examined vowel distributions of native speakers of
+Mandarin as well as non-native speakers of Mandarin. We were interested
+to understand vowel distributions among NS as well as between NS and
+NNS. From the current dataset, we conclude that there are individual NS
+variations in the vowel production. The differences are also evident
+between NS and NNS speakers. This project is significant for clinical
+applications. Learners of Mandarin can use F1 and F2 values as
+biofeedback for their accent modifications. Future work can include a
+larger sample size in the analysis for better generalization of results.
 
 \newpage
 
@@ -351,12 +319,6 @@ Roach, P. (2004). British english: Received pronunciation. \emph{Journal
 of the International Phonetic Association}, \emph{34}(2), 239--245.
 
 \endgroup
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{\textbackslash{}newfontfamily\textbackslash{}ipa}\NormalTok{\{Doulos SIL\} }
-\end{Highlighting}
-\end{Shaded}
 
 
 \end{document}
