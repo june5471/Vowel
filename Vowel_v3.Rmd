@@ -73,9 +73,6 @@ theme_set(theme_minimal(base_size = 8))
 ```{r}
 install.packages("linguisticsdown")
 devtools::install_github("liao961120/linguisticsdown")
-
-install.packages("phonTools")
-library(phonTools)
 ```
 
 ```{r load_data, include = FALSE}
@@ -85,6 +82,8 @@ df <- import(here("data", "data.xlsx"),
 head(df)
 
 ```
+
+
 ```{r tidy_data, include = FALSE}
 tidy_df <- df %>% 
   clean_names(case = "snake") %>% 
