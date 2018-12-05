@@ -88,21 +88,18 @@ head(df)
 tidy_df <- df %>% 
   clean_names(case = "snake") %>% 
   separate(x_1, into = c("group", "id"),
-           sep = -1) %>%  
-  #seperate x_1 to group (NS vs. NNS) & id
+           sep = -1) %>%  #seperate x_1 to group (NS vs. NNS) & id
   mutate(id = case_when(
    group == "NNS" & id == '1' ~  '7',
    group == "NNS" & id == '2' ~  '8',
    group == "NNS" & id == '3' ~  '9',
    group == "NNS" & id == '4' ~  '10',
    group == "NNS" & id == '5' ~  '11',
-   group == "NNS" & id == '6' ~  '12'
+   group == "NNS" & id == '6' ~  '12',
    TRUE ~ id
-   )) %>%  
-  # fix duplicate id numbers
+   )) %>%  # fix duplicate id numbers
   mutate(group = as.factor(group),
-        id = as.numeric(id)) %>%  
-  #rename variables & set the variable types
+        id = as.numeric(id)) %>%  #rename variables & set the variable types
   gather(vowel, value, -1:-6) %>%
   mutate(vowel = as.factor(vowel)) %>%
   spread(mean, value) %>%
@@ -112,6 +109,7 @@ tidy_df <- df %>%
 
 head(tidy_df)
 
+#"(?<=[A-Za-z])(?=[0-9])"
 ```
 
 
@@ -154,7 +152,20 @@ Table 1 shows the mean F1 and F2 values of nine Chinese vowels for native speake
 
 
 ```{r table1, echo= FALSE}
-smry_df %>% 
+table_f1mean <- smry_df %>% 
+  select(1:3) %>% 
+  spread(vowel,F1_mean) 
+
+table_f2mean <- smry_df %>%
+  select(1:2,4) %>% 
+  spread(vowel,F2_mean) 
+
+bind_rows(table_f1mean,table_f2mean) -> bindtables 
+
+bindtables["Mean"] <- c("F1","F1","F2","F2")
+bindtables_new <- bindtables[colnames(bindtables)[c(11,1:10)]]
+
+bindtables_new %>% 
   kable(format = "latex",
         digits = 2,
         caption = "Formant by volwels among non-native and native groups",
@@ -171,16 +182,16 @@ Clearer vowel distribution for each native speaker can be seen in the formant pl
 tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
   geom_point(size = 3) +
-  scale_x_reverse() +  
-  #reverse x and y to meet the perception of sounds
+  scale_x_reverse() +  #reverse x and y to meet the perception of sounds
   scale_y_reverse() +
   facet_wrap(~ group) + 
   theme_classic() +
-  scale_color_discrete(breaks = c("i", "y",
-                                  "u", "e",
-                                  "o", "ə",
-                                  "ɤ", "a",
-                                  "ɑ"))  #reorder vowel based on IPA order
+  scale_color_discrete(breaks = c("yi", "yu", 
+                                  "wu", "ye", 
+                                  "wo", "en", 
+                                  "e", "ai", 
+                                  "ao")) +  #reorder vowel based on IPA order
+  labs(title = "Vowel Distribution among All Non-native and Native Speakers")
 
 ```
 
@@ -192,10 +203,9 @@ smry_df %>%
     scale_x_reverse() +  
     scale_y_reverse() +
     theme_classic() +
-   labs(title = "Mean Vowel Distribution between Non-native and Native Speakers",
+    labs(title = "Mean Vowel Distribution between Non-native and Native Speakers",
          x = "F2",
-         y = "F1") +
-   labs(title = "Vowel Distribution among All Non-native and Native Speakers")
+         y = "F1")
 
 ```
 
@@ -209,11 +219,28 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
   stat_ellipse(aes(color = vowel), level = 0.67) +
   scale_x_reverse() +  
   scale_y_reverse() +
-  theme_classic() +
+  theme_classic() + 
   labs(title = "Individual and Group Vowel Distribution",
        subtitle = "The size of output ellipses in standard deviations.") +
   guides(color = FALSE)
 
+```
+
+```{r figure5, echo= FALSE}
+## figure 5 participant age
+demo <- import(here("data", "demographics.xlsx"),
+             setclass = "tbl_df")
+
+ggplot(data = demo, aes(x = "", y = Age)) + 
+  geom_boxplot() +
+  theme_classic() 
+```
+
+```{r figure6, echo= FALSE}
+## figure 6 participant height
+ggplot(demo, aes(x = Height)) +
+  geom_bar() +
+  theme_classic() 
 ```
 
 ##Second language examination
@@ -224,8 +251,7 @@ It is clear that second language learners of Manradin present with a English-col
 
 #Conclusion
 The present study examined vowel distributions of native speakers of Mandarin as well as non-native speakers of Mandarin. We were interested to understand vowel distributions among NS as well as between NS and NNS. From the current dataset, we conclude that there are individual NS variations in the vowel production. The differences are also evident between NS and NNS speakers.
-This project is significant for clinical applications. Learners of Mandarin can use F1 and F2 values as biofeedback for their accent modifications. Future work can include a larger sample size in the analysis for better generalization of resutls.
-
+This project is significant for clinical applications. Learners of Mandarin can use F1 and F2 values as biofeedback for their accent modifications. Future work can include a larger sample size in the analysis for better generalization of results.
 
 
 
@@ -240,8 +266,3 @@ This project is significant for clinical applications. Learners of Mandarin can 
 
 <div id = "refs"></div>
 \endgroup
-
-
-```tex
-\newfontfamily\ipa{Doulos SIL} 
-```
