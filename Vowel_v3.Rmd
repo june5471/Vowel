@@ -143,7 +143,7 @@ We prepared nine Chinese sentences for speech materials. Each sentence includes 
 Productions were elicited in a sentence-repetition oral task. Non-native speakers (NNS) and native Chinese speakers (NS) were asked to read the sentences twice. All participants read the speech materials for practice once before recording. Recordings were made in a quiet study room in the library using Praat Sound Recorder with 44,100 Hz sampling frequency, and then these recordings were saved as wav files on a laptop. 
 Formant 1 (F1) and Formant 2 (F2) were measured in the vowel mid-point for each vowel shown in the spectrogram. All measurement was conducted using Praat program on the same laptop. After the measurement, the mean F1 and F2 values were plotted in charts using the program R to generate vowel distribution for each speaker.
 
-#Results and discussion 
+#Results and Discussion 
 ##Native speaker patterns
 Table 1 shows the mean F1 and F2 values of nine Chinese vowels for native speakers. Regarding F2 values, data shows that [i] had the highest F2 values for all native speakers, and [u] had the lowest F2 values for NS2 and NS3, but not for NS1. As for F1 values, three NS also had different lowest and highest values. While [i] had the lowest F1 value and [`r linguisticsdown::cond_cmpl("ɑ")`] had the highest F1 value for NS1 and NS3, NS2’s [y] had the lowest F1 value and her [a] had the highest F1 value.
 
@@ -159,7 +159,7 @@ smry_df %>%
   #               full_width = F) 
 ```
 
-Clearer vowel distribution for each native speaker can be seen in the formant plots (Figure 1-3). According to the “vowel dispersion principle”, the vowel quadrilateral can be viewed as “a perceptual space in which vowels are located in the oral cavity” (Ashby and Maidment, 2005). In this study, the vowel quadrilateral is shown as formant plots where the Y-axis is F1 (Hz) that corresponds to the height of the tongue position; while the X-axis is F2 (Hz) that indicates the backness of the tongue position for each vowel (Figure 1-3). 
+Clearer vowel distribution for each native speaker can be seen in the formant plots (Figure 1-3). According to the “vowel dispersion principle”, the vowel quadrilateral can be viewed as “a perceptual space in which vowels are located in the oral cavity”  [see @ashby2005]. In this study, the vowel quadrilateral is shown as formant plots where the Y-axis is F1 (Hz) that corresponds to the height of the tongue position; while the X-axis is F2 (Hz) that indicates the backness of the tongue position for each vowel (Figure 1-3). 
 
 ```{r figure1, echo= FALSE}
 ##figure 1 
@@ -205,9 +205,18 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
 ```
 
 ##Second language examination
+The vowel productions are different in NS and NNS groups (Table 1). In terms of F1, the height of the tongue placement, NNS typically produce a higher F1 than NS, i.e. [ao], [e], [wu], with the exception of [en], where NNS's F1 is lower. This suggests that NNS have a tendency to place the tongue at a higher position during the vowel production than NS. 
+Variations in the F2 production, the backness of the tongue, are also evident between NS and NNS. In general, NNS exhibit a higher F2 in [e], [wo], [wu] than NS except for [yu]. The differences indicate that NNS, when producing vowels, exhibit a more backward lingual placement than NS. 
+It is clear that second language learners of Manradin present with a English-colored vowel production when compared to the native speakers.
 
 
 #Conclusion
+The present study examined vowel distributions of native speakers of Mandarin as well as non-native speakers of Mandarin. We were interested to understand vowel distributions among NS as well as between NS and NNS. From the current dataset, we conclude that there are individual NS variations in the vowel production. The differences are also evident between NS and NNS speakers.
+This project is significant for clinical applications. Learners of Mandarin can use F1 and F2 values as biofeedback for their accent modifications. Future work can include a larger sample size in the analysis for better generalization of resutls.
+
+
+
+
 
 \newpage
 
