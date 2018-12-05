@@ -89,7 +89,8 @@ head(df)
 tidy_df <- df %>% 
   clean_names(case = "snake") %>% 
   separate(x_1, into = c("group", "id"),
-           sep = "(?<=[A-Za-z])(?=[0-9])") %>%  #seperate x_1 to group (NS vs. NNS) & id
+           sep = -1) %>%  
+  #seperate x_1 to group (NS vs. NNS) & id
   mutate(id = case_when(
    group == "NNS" & id == '1' ~  '7',
    group == "NNS" & id == '2' ~  '8',
@@ -97,9 +98,12 @@ tidy_df <- df %>%
    group == "NNS" & id == '4' ~  '10',
    group == "NNS" & id == '5' ~  '11',
    group == "NNS" & id == '6' ~  '12'
-   )) %>%  # fix duplicate id numbers
+   TRUE ~ id
+   )) %>%  
+  # fix duplicate id numbers
   mutate(group = as.factor(group),
-        id = as.numeric(id)) %>%  #rename variables & set the variable types
+        id = as.numeric(id)) %>%  
+  #rename variables & set the variable types
   gather(vowel, value, -1:-6) %>%
   mutate(vowel = as.factor(vowel)) %>%
   spread(mean, value) %>%
@@ -110,6 +114,8 @@ tidy_df <- df %>%
 head(tidy_df)
 
 ```
+
+
 ```{r smr_data, include= FALSE}
 smry_df <- tidy_df %>% 
   group_by(group, vowel) %>% 
@@ -166,7 +172,8 @@ Clearer vowel distribution for each native speaker can be seen in the formant pl
 tidy_df %>% 
   ggplot(aes(x = F2, y = F1, color = vowel)) + 
   geom_point(size = 3) +
-  scale_x_reverse() +  #reverse x and y to meet the perception of sounds
+  scale_x_reverse() +  
+  #reverse x and y to meet the perception of sounds
   scale_y_reverse() +
   facet_wrap(~ group) + 
   theme_classic() +
@@ -185,7 +192,11 @@ smry_df %>%
     geom_label() +
     scale_x_reverse() +  
     scale_y_reverse() +
-    theme_classic()
+    theme_classic() +
+   labs(title = "Mean Vowel Distribution between Non-native and Native Speakers",
+         x = "F2",
+         y = "F1") +
+   labs(title = "Vowel Distribution among All Non-native and Native Speakers")
 
 ```
 
@@ -200,6 +211,8 @@ ggplot(data = tidy_df, aes(x = F2, y = F1 )) +
   scale_x_reverse() +  
   scale_y_reverse() +
   theme_classic() +
+  labs(title = "Individual and Group Vowel Distribution",
+       subtitle = "The size of output ellipses in standard deviations.") +
   guides(color = FALSE)
 
 ```
