@@ -186,6 +186,7 @@ tidy_df %>%
                                   "e", "ai", 
                                   "ao")) +  #reorder vowel based on IPA order
   labs(title = "Vowel Distribution among All Non-native and Native Speakers")
+
 ```
 
 ```{r figure2, echo= FALSE}
